@@ -13,7 +13,8 @@ import java.util.Random;
  */
 public class RandomSayiOlusturClass {
     
-     public  int[] sayiOlustur()
+    
+     public static int[] sayiOlustur()
     {
      
         Random rnd = new Random();

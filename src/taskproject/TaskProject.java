@@ -37,10 +37,13 @@ public class TaskProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws TransformerConfigurationException, TransformerException {
-            
+          
+        for (int i = 0; i < 10; i++) {
+        
         XmlOkuYaz goster=new XmlOkuYaz();
         goster.xmlYaz();
-   
+        }
+       
          
   }
 }
