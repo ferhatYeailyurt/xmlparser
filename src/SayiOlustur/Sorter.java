@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author ferhat
  */
-public interface Sorter <T extends List<? extends Comparable>> {
+public interface Sorter <T extends List<U>,U extends Comparable> {
     
     public  void sort(T te);
     

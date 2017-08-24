@@ -50,8 +50,18 @@ public class TaskProject {
      * @param args the command line arguments
      */
     public static void main(String[] args)  {
-        
-       //yazmaIslemi();
+        System.out.println("insertion = 1 , bubble = 2 , selection= 3 basınız");
+
+        Scanner sc=new Scanner(System.in);
+        String ifade=sc.nextLine();
+
+       final SortSecici  sortSecici= new SortSecici();
+
+       final Sorter sorter=sortSecici.formatAl(ifade);
+
+      //sıralama işleminden sonra sorter.sort(t); gibi
+
+       yazmaIslemi();
 
   }
     
@@ -63,10 +73,9 @@ public class TaskProject {
             
             final int dosyaNumarasi =i+1;
             Thread t= new Thread(()->{
-                
-        
         Sayilar sayilar=new Sayilar(false);
-        sayilar.sayilariAl(RandomSayiOlusturClass.sayiOlustur(100000,1,1000000));
+
+        sayilar.sayilariAl(RandomSayiOlusturClass.Nesne().sayiOlustur(100000,1,1000000));
                 try {
                     XmlOkuYaz.xmlYaz(sayilar,"cikti"+dosyaNumarasi);
                 } catch (TransformerException ex) {

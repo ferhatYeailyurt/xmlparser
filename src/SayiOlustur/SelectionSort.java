@@ -12,10 +12,12 @@ import java.util.List;
  *
  * @author ferhat
  */
-public class SelectionSort implements Sorter<List<? extends Comparable>>{
+public class SelectionSort <T extends List<U>,U extends Comparable> implements Sorter<T, U>  {
 
+    //algoritmik complexity bilgisi  = O(n2)
+    
     @Override
-    public void sort(List<? extends Comparable> liste) {
+    public void sort(T liste) {
     
         for (int i = 0; i < liste.size() - 1; i++)
         {
