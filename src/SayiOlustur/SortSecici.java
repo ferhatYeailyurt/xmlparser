@@ -15,15 +15,15 @@ public class SortSecici {
     
     public Sorter formatAl(String ifade)
     {
-        if(ifade=="1")
+        if(ifade.equals("1"))
         {
           return new InsertionSort();
         }
-        else if(ifade=="2")
+        else if(ifade.equals("2"))
         {
          return new BubbleSort();
         }
-        else if(ifade=="3")
+        else if(ifade.equals("3"))
         {
          return new SelectionSort();
         }

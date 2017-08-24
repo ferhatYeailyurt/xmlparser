@@ -20,12 +20,12 @@ public class BubbleSort <T extends List<U>,U extends Comparable> implements Sort
     @Override
     public void sort(T liste) {
         
-         for (int i = (liste.size()-1); i >=0; i++)
+         for (int i = (liste.size()-1); i >=0; i--)
         {
             
-            for (int j =  1; j < i; j++){
+            for (int j =  1; j <= i; j++){
                 
-                if(liste.get(j-1).compareTo(liste.get(i))>0)
+                if(liste.get(j-1).compareTo(liste.get(j))>0)
                 {
                      Collections.swap(liste, j-1, j);
                    

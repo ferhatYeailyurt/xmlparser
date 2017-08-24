@@ -23,7 +23,7 @@ public class InsertionSort <T extends List<U>,U extends Comparable> implements S
             U index=liste.get(i);
             
             int j=i;
-            while(j>0 && liste.get(j-1).compareTo(j-1)>0)
+            while(j>0 && liste.get(j-1).compareTo(index)>0)
             {
                 liste.set(j,liste.get(j-1));
                 j--;

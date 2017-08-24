@@ -53,8 +53,8 @@ public class XmlOkuYaz {
             StreamResult result = new StreamResult(new File(dosyaAdi+".xml"));
     
             transformer.transform(source, result);
+            
           
-        
     }
     
     public static Sayilar xmlOku(String dosyaAdi) throws ParserConfigurationException, SAXException, IOException
@@ -98,6 +98,7 @@ public class XmlOkuYaz {
 		}
                 
 	}
+        System.out.println(dosyaAdi);
      return sayilar;  
   }
 }

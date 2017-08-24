@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package taskproject;
 
 /**
@@ -36,8 +31,11 @@ import xmlcontroller.XmlOkuYaz;
 import SayiOlustur.RandomSayiOlusturClass;
 import SayiOlustur.Sayilar;
 import SayiOlustur.SelectionSort;
+import SayiOlustur.SortSecici;
+import SayiOlustur.Sorter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -46,6 +44,7 @@ import java.util.stream.Collectors;
 import javax.xml.parsers.ParserConfigurationException;
 public class TaskProject {
 
+    public static Sorter sorter=null;
     /**
      * @param args the command line arguments
      */
@@ -54,30 +53,58 @@ public class TaskProject {
 
         Scanner sc=new Scanner(System.in);
         String ifade=sc.nextLine();
+        
 
-       final SortSecici  sortSecici= new SortSecici();
+       final SortSecici sortSecici= new SortSecici();
 
-       final Sorter sorter=sortSecici.formatAl(ifade);
+        sorter=sortSecici.formatAl(ifade);
+       List<Sayilar> sayilarListesi = rastgeleSayilarOlustur(10, 1, 1000000, 100000);
+        
+        SayilariYaz(sayilarListesi, "cikti", false);
+        System.out.println("cikti 1 yapıldı.");
+        
+        List<Sayilar> okuSayilar =sayilariOku("cikti", 10);
+        System.out.println("sayilar okundu");
+        
+        SayilariYaz(okuSayilar, "orderedcikti", true);
+        System.out.println("Sayilar yazildi");
+        
+        
+        
+        
 
       //sıralama işleminden sonra sorter.sort(t); gibi
 
-       yazmaIslemi();
+      // yazmaIslemi();
 
   }
-    
-    public static void yazmaIslemi()
+    public static List<Sayilar> rastgeleSayilarOlustur(int sayilarAdeti, int minDeger, int maxDeger, int sayiAdeti)
+    {
+        List<Sayilar> sayilarListesi=new ArrayList<>();
+        for (int i = 0; i < sayilarAdeti; i++) {
+           int [] sayilarDizisi = RandomSayiOlusturClass.Nesne().sayiOlustur(sayiAdeti, minDeger, maxDeger);
+           Sayilar sayilar=new Sayilar(false);
+           sayilar.sayilariAl(sayilarDizisi);
+           sayilarListesi.add(sayilar);
+           
+        }
+        return sayilarListesi;
+        
+    }
+
+    public static void SayilariYaz(List<Sayilar> sayilarListesi,String prefix, boolean sirala)
     {
          List<Thread> threadler=new ArrayList<>();
-        
-        for (int i = 0; i < 10; i++) {
-            
-            final int dosyaNumarasi =i+1;
-            Thread t= new Thread(()->{
-        Sayilar sayilar=new Sayilar(false);
-
-        sayilar.sayilariAl(RandomSayiOlusturClass.Nesne().sayiOlustur(100000,1,1000000));
-                try {
-                    XmlOkuYaz.xmlYaz(sayilar,"cikti"+dosyaNumarasi);
+         
+        for (int i = 0; i < sayilarListesi.size(); i++) {
+             final int dosyaNumarasi =i+1;
+            Sayilar sayilar=sayilarListesi.get(i);
+                Thread t= new Thread(()->{
+              try {
+                  if (sirala) {
+                      sayilar.sayilariSirala(sorter);
+                  }
+                    XmlOkuYaz.xmlYaz(sayilar,prefix+dosyaNumarasi);
                 } catch (TransformerException ex) {
                     Logger.getLogger(TaskProject.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ParserConfigurationException ex) {
@@ -86,25 +113,26 @@ public class TaskProject {
         });
             t.start();
             threadler.add(t);
+         
             
-        } 
-        threadler.forEach(t->{
-            try {
-                t.join();
-            } catch (InterruptedException ex) {
-                throw new RuntimeException("hata calisma 1");
-            }
-        });
-       
-       
+        }
+     threadler.forEach(t->{
+             try {
+                 t.join();
+             } catch (InterruptedException ex) {
+                 Logger.getLogger(TaskProject.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         });
     }
     
-    public static List<Sayilar> okumaIslemi()
+    
+   
+    public static List<Sayilar> sayilariOku(String prefix,int dosyaAdedi)
     {
-        String prefix="cikti";
+        
 
         List<CompletableFuture<Sayilar>> cfs=new ArrayList<>();
-        for(int i=0; i<10; i++){
+        for(int i=0; i<dosyaAdedi; i++){
             final int dosyaNumarasi = i+1;
             cfs.add(CompletableFuture.supplyAsync(() -> {
                 try {
