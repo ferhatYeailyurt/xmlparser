@@ -14,15 +14,15 @@ import java.util.Random;
 public class RandomSayiOlusturClass {
     
     
-     public static int[] sayiOlustur()
+     public static int[] sayiOlustur(int sayiAdeti, int mindeger , int maxdeger)
     {
      
         Random rnd = new Random();
         
-        int[] intSayiDizisi = new int[100];
+        int[] intSayiDizisi = new int[sayiAdeti];
         
         for (int i= 0; i < intSayiDizisi.length; i++) {
-            intSayiDizisi[i] = rnd.nextInt(200);
+            intSayiDizisi[i] = rnd.nextInt(mindeger+maxdeger+1)+mindeger;
         }
         
         return intSayiDizisi;

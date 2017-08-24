@@ -5,13 +5,15 @@
  */
 package SayiOlustur;
 
+import java.util.List;
+
 /**
  *
  * @author ferhat
  */
-public interface Sorter {
+public interface Sorter <T extends List<? extends Comparable>> {
     
-    public  void sort();
+    public  void sort(T te);
     
     
 }

@@ -6,7 +6,12 @@
 package SayiOlustur;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -15,34 +20,95 @@ import java.util.List;
 public class Sayilar {
 
     private List<Sayi> sayilarList = new ArrayList<Sayi>();
+   
+    private String xmlName;
     
-    private Sorter sorter;
-            
+    private boolean tekrarli=false;
+    
+    public Sayilar(boolean sorted)
+    {
+        if (sorted) {
+            this.xmlName="sortedList";
+        }
+        else
+            this.xmlName="sayiList";
+   
+    }
+    
+    public String toString()
+    {
+        return sayilarList.toString();
+    }
+    public void writeDocument(Document d, Node n)
+    {
+        
+        Element e=  d.createElement(xmlName);
+        n.appendChild(e);
+        int index=1;
+        for (Sayi s:sayilarList) {
+            s.writeDocument(d, e,index++,tekrarli);
+        }
+        
+    }
           
     
     public  void yeniSayiEkle(Sayi s)
     {
+        sayilarList.add(s);
+        
         
     }
     
-    public  void sayilariSirala()
+    public  void sayilariSirala(Sorter sorter)
     {
-        
+     sorter.sort(this.sayilarList);
+     
+       
     }
     
     public  void sayilariBirlestir(Sayilar s)
     {
+     
+     
+     this.sayilarList.addAll(s.sayilarList);
+     
         
     }
     
     public  void tekrarSayisiHesapla()
     {
+        //sayıların sıralı olarak buraya gelmesi lazım
+        
+        Iterator<Sayi> i=sayilarList.iterator();
+        Sayi simdikiDeger=null,sonrakiDeger;
+        while(i.hasNext())
+        {
+            sonrakiDeger= i.next();
+            if (simdikiDeger==null || simdikiDeger.compareTo(sonrakiDeger) != 0 ) {
+                simdikiDeger=sonrakiDeger;
+                continue;
+            }
+            
+            simdikiDeger.tekrarSayisiArttir();
+            i.remove();
+                        
+        }
+        
+        tekrarli=true;
         
     }
     
-    public void setSorter(Sorter sorter) {
-        this.sorter = sorter;
+    public void sayilariAl(int [] sayiDizisi)
+    {
+        for (int i : sayiDizisi) {
+            sayilarList.add(new Sayi(i));
+        }
+    
+        
     }
+    
+    
+   
     
     
     
