@@ -83,12 +83,12 @@ public class Sayilar {
         while(i.hasNext())
         {
             sonrakiDeger= i.next();
-            if (simdikiDeger==null || simdikiDeger.compareTo(sonrakiDeger) != 0 ) {
+            if (simdikiDeger==null || simdikiDeger.compareValues(sonrakiDeger) != 0 ) {
                 simdikiDeger=sonrakiDeger;
                 continue;
             }
             
-            simdikiDeger.tekrarSayisiArttir();
+            simdikiDeger.tekrarSayisiArttir(sonrakiDeger);
             i.remove();
                         
         }

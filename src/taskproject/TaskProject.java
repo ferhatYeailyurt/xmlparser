@@ -70,21 +70,24 @@ public class TaskProject {
         System.out.println("Sayilar yazildi");
         
         List<Sayilar> siraliSayilar =sayilariOku("orderedcikti", 10);
+
+
        Sayilar birlestirilmisSayilar =  Sayilar.sayilariBirlestir(siraliSayilar.toArray(new Sayilar[10] ));
-       
+
        birlestirilmisSayilar.sayilariSirala(sorter);
         System.out.println(birlestirilmisSayilar);
-       
+
        birlestirilmisSayilar.tekrarSayisiHesapla();
         System.out.println(birlestirilmisSayilar);
        birlestirilmisSayilar.sayilariSirala(sorter);
-       
+        System.out.println(birlestirilmisSayilar);
+
        XmlOkuYaz.xmlYaz(birlestirilmisSayilar, "birleşik");
        
        
-      // yazmaIslemi();
-
   }
+
+
     public static List<Sayilar> rastgeleSayilarOlustur(int sayilarAdeti, int minDeger, int maxDeger, int sayiAdeti)
     {
         List<Sayilar> sayilarListesi=new ArrayList<>();
