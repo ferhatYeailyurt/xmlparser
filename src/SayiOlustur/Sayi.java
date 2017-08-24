@@ -50,11 +50,11 @@ public class Sayi implements Comparable<Sayi>{
 
     @Override
     public int compareTo(Sayi o) {
-        int tekrarSayisiFarki=o.tekrarSayisi-this.tekrarSayisi;
-        if (tekrarSayisiFarki!=0) {
-            return tekrarSayisiFarki;
+        int valueFarki=this.value-o.value;
+        if (valueFarki!=0) {
+            return valueFarki;
         }
-        return this.value-o.value;
+        return o.tekrarSayisi-this.tekrarSayisi;
         
     }
     

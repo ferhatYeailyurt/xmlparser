@@ -27,7 +27,7 @@ public class SortSecici {
         {
          return new SelectionSort();
         }
-        throw new IllegalArgumentException("yanlış ifade 2");
+        throw new IllegalArgumentException("yanlış ifade girildi");
         
     }
     

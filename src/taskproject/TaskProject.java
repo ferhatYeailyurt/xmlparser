@@ -48,8 +48,8 @@ public class TaskProject {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)  {
-        System.out.println("insertion = 1 , bubble = 2 , selection= 3 basınız");
+    public static void main(String[] args) throws TransformerException, ParserConfigurationException  {
+        System.out.println("Sıralama işleminde kullanılacak algoritmalardan: Insertion Sort için 1 , Bubble Sort için 2 , Selection Short için 3 yazıp  enter'a  basınız:");
 
         Scanner sc=new Scanner(System.in);
         String ifade=sc.nextLine();
@@ -57,8 +57,8 @@ public class TaskProject {
 
        final SortSecici sortSecici= new SortSecici();
 
-        sorter=sortSecici.formatAl(ifade);
-       List<Sayilar> sayilarListesi = rastgeleSayilarOlustur(10, 1, 1000000, 100000);
+       sorter=sortSecici.formatAl(ifade);
+       List<Sayilar> sayilarListesi = rastgeleSayilarOlustur(10, 1, 10, 100);
         
         SayilariYaz(sayilarListesi, "cikti", false);
         System.out.println("cikti 1 yapıldı.");
@@ -69,12 +69,19 @@ public class TaskProject {
         SayilariYaz(okuSayilar, "orderedcikti", true);
         System.out.println("Sayilar yazildi");
         
-        
-        
-        
-
-      //sıralama işleminden sonra sorter.sort(t); gibi
-
+        List<Sayilar> siraliSayilar =sayilariOku("orderedcikti", 10);
+       Sayilar birlestirilmisSayilar =  Sayilar.sayilariBirlestir(siraliSayilar.toArray(new Sayilar[10] ));
+       
+       birlestirilmisSayilar.sayilariSirala(sorter);
+        System.out.println(birlestirilmisSayilar);
+       
+       birlestirilmisSayilar.tekrarSayisiHesapla();
+        System.out.println(birlestirilmisSayilar);
+       birlestirilmisSayilar.sayilariSirala(sorter);
+       
+       XmlOkuYaz.xmlYaz(birlestirilmisSayilar, "birleşik");
+       
+       
       // yazmaIslemi();
 
   }

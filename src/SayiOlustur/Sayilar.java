@@ -61,19 +61,18 @@ public class Sayilar {
     
     public  void sayilariSirala(Sorter sorter)
     {
-     sorter.sort(this.sayilarList);
-     
-       
+     sorter.sort(this.sayilarList); 
     }
     
-    public  void sayilariBirlestir(Sayilar s)
+    public static Sayilar sayilariBirlestir(Sayilar... s)
     {
-     
-     
-     this.sayilarList.addAll(s.sayilarList);
-     
-        
+        Sayilar sayilar=new Sayilar(false);
+        for (Sayilar birlesecekSayilar : s) {
+            sayilar.sayilarList.addAll(birlesecekSayilar.sayilarList);
+            }
+     return sayilar;
     }
+    
     
     public  void tekrarSayisiHesapla()
     {
