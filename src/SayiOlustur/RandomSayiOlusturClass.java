@@ -13,8 +13,26 @@ import java.util.Random;
  */
 public class RandomSayiOlusturClass {
     
+    //singleton tasarım deseni kullanılmıştır.
     
-     public static int[] sayiOlustur(int sayiAdeti, int mindeger , int maxdeger)
+    private static RandomSayiOlusturClass nesne;
+    
+    private RandomSayiOlusturClass()
+    {
+        
+    }
+    
+    public static RandomSayiOlusturClass Nesne()
+    {
+        if(nesne==null)
+            nesne=new  RandomSayiOlusturClass();
+            
+        return nesne;
+    }
+     
+    
+    
+    public  int[] sayiOlustur(int sayiAdeti, int mindeger , int maxdeger)
     {
      
         Random rnd = new Random();

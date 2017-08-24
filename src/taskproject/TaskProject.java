@@ -33,8 +33,11 @@ import xmlcontroller.XmlOkuYaz;
 import SayiOlustur.RandomSayiOlusturClass;
 import SayiOlustur.Sayilar;
 import SayiOlustur.SelectionSort;
+import SayiOlustur.SortSecici;
+import SayiOlustur.Sorter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,12 +47,19 @@ public class TaskProject {
      * @param args the command line arguments
      */
     public static void main(String[] args)  {
+        System.out.println("insertion = 1 , bubble = 2 , selection= 3 basınız");
         
+        Scanner sc=new Scanner(System.in);
+        String ifade=sc.nextLine();
+     
+       final SortSecici  sortSecici= new SortSecici();
+       
+       final Sorter sorter=sortSecici.formatAl(ifade);
+       
+      //sıralama işleminden sonra sorter.sort(t); gibi 
+       
        yazmaIslemi();
-        
-        
-        
-        
+         
   }
     
     public static void yazmaIslemi()
@@ -60,10 +70,9 @@ public class TaskProject {
             
             final int dosyaNumarasi =i+1;
             Thread t= new Thread(()->{
-                
-        
         Sayilar sayilar=new Sayilar(false);
-        sayilar.sayilariAl(RandomSayiOlusturClass.sayiOlustur(100000,1,1000000));
+        
+        sayilar.sayilariAl(RandomSayiOlusturClass.Nesne().sayiOlustur(100000,1,1000000));
                 try {
                     XmlOkuYaz.xmlYaz(sayilar,"cikti"+dosyaNumarasi);
                 } catch (TransformerException ex) {
@@ -89,6 +98,34 @@ public class TaskProject {
     
     public static void okumaIslemi()
     {
+         List<Thread> threadler=new ArrayList<>();
+        
+        for (int i = 0; i < 10; i++) {
+            
+            final int dosyaNumarasi =i+1;
+            Thread t= new Thread(()->{
+        Sayilar sayilar=new Sayilar(false);
+        sayilar.sayilariAl(RandomSayiOlusturClass.Nesne().sayiOlustur(100000,1,1000000));
+                try {
+                    XmlOkuYaz.xmlYaz(sayilar,"cikti"+dosyaNumarasi);
+                } catch (TransformerException ex) {
+                    Logger.getLogger(TaskProject.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParserConfigurationException ex) {
+                    Logger.getLogger(TaskProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        });
+            t.start();
+            threadler.add(t);
+            
+        } 
+        threadler.forEach(t->{
+            try {
+                t.join();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException("hata calisma 1");
+            }
+        });
+        
         
     }
 }
